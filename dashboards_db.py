@@ -8,7 +8,7 @@ Created on Fri Oct  1 05:12:06 2021
 """
 Created on Wed May  5 22:33:36 2021
 
-@author: TraderMike
+@author: Mangesh
 """
 import datetime as dt
 from datetime import datetime
@@ -23,12 +23,12 @@ import psycopg2
 import json
 from playsound import playsound
 from sqlalchemy import create_engine
-engine = create_engine('postgresql://postgres:Pistonpower@115@localhost:5432/postgres')
+engine = create_engine('')
 connection = psycopg2.connect(
-            host="localhost",
-            database="postgres",
-            user="postgres",
-            password="Pistonpower@115")
+            host="",
+            database="",
+            user="",
+            password="")
 sector_all_data=pd.read_sql('select * from bhav_copy_raw.index_file order by "Index Name","Index Date"', connection,index_col='index')
 stock_all_data=data=pd.read_sql('select * from bhav_copy_raw.bhavcopy order by "SYMBOL","TIMESTAMP"', connection,index_col='index')
         
@@ -127,7 +127,7 @@ def supertrendfunction(DF,n,m,data):
     return df['Strend']
 
 def getsector():
-    sectors=pd.read_csv(r"C:\Users\mange\OneDrive\Dashboard\sectors.csv")
+    sectors=pd.read_csv(r"")
     nifty=getdata("NIFTY 50",True)
     nifty.columns=["date","closenf","STnf","MACDnf","closenfh","STnfh","MACDnfh"]
     data=pd.DataFrame(columns=['date', 'closesect', 'STsect', 'MACDsect', 'closesecth', 'STsecth',
@@ -141,7 +141,7 @@ def getsector():
 #sectordata=getsector()
 def getstockresult(srcstock_path,dststock_path,db_name):
     stocks=pd.read_csv(srcstock_path)
-    sectors=pd.read_csv(r"C:\Users\mange\OneDrive\Dashboard\sectors.csv")
+    sectors=pd.read_csv(r"")
     stockslist=pd.merge(stocks,sectors,on=['INDEX_ID'],how='inner')
     stockslist.set_index("Stock_ID",inplace=True)
     result=pd.DataFrame(columns=['stock', 'date', 'close', 'ST', 'MACD','closeh', 'STh', 'MACDh',
@@ -191,7 +191,7 @@ def getstockresult(srcstock_path,dststock_path,db_name):
     result=result.reset_index(drop=True)
     result=result[["stock","Trend_analysis","RS_analysis","Strength_analysis","52W high","mscore","date","close","ST","closeh","STh","NIFTY 50","closenf","STnf","closenfh","STnfh","sector"
                    ,"closesect","STsect","closesecth","STsecth","Sector_RS","Bench_RS","MACD_S","MACD_B","52W_High","52W_Low","MACD","MACDh","RSI"]]
-    result.to_csv(r"C:\Users\mange\OneDrive\Dashboard/"+dststock_path)
+    result.to_csv(r"")
     result = result.rename(columns={'52W high': 'one_year_high', 'NIFTY 50': 'NIFTY_50','52W_High':'one_year_high_abs','52W_Low':'one_year_low_abs'})
     result.to_sql(db_name,engine,'db_screener',if_exists='replace')
     # result['Trend_analysis']='NA'
@@ -217,7 +217,7 @@ def getstockresult(srcstock_path,dststock_path,db_name):
     # result = result.rename(columns={'52W high': 'one_year_high', 'NIFTY 50': 'NIFTY_50','52W_High':'one_year_high_abs','52W_Low':'one_year_low_abs'})
     # result.to_sql(db_name,engine,if_exists='replace')
 def getsectorresult():
-    sectors=pd.read_csv(r"C:\Users\mange\OneDrive\Dashboard\sectors.csv")
+    sectors=pd.read_csv(r"")
     result=pd.DataFrame(columns=['sector', 'date', 'close', 'ST', 'MACD', 'closeh', 'STh', 'MACDh',
        'NIFTY 50', 'closenf', 'STnf', 'MACDnf', 'closenfh', 'STnfh', 'MACDnfh',
        'Bench_RS', 'MACD_B', 'RSI'])
@@ -252,7 +252,7 @@ def getsectorresult():
             result['Strength_Analysis'].loc[i]="Bullish"
         else :
             result['Strength_Analysis'].loc[i]="Bearish"
-    result.to_csv(r"C:\Users\mange\OneDrive\Dashboard\Sector_dashboard.csv")
+    result.to_csv(r"")
     
 
 def bullishlist():
@@ -274,11 +274,11 @@ def bullishlist():
 
 
 tic=dt.datetime.now()
-getstockresult(r"C:\Users\mange\OneDrive\Dashboard\sector_position.csv","RS_dashboard.csv",'stock_screener')
-getstockresult(r"C:\Users\mange\OneDrive\Dashboard\ind_niftymidcap100list (1).csv","MidCap.csv",'Midcap')
-getstockresult(r"C:\Users\mange\OneDrive\Dashboard\nifty_50.csv","NIFTY_DASHBOARD.csv",'nifty_50')
-playsound(r"C:\Users\mange\Desktop\Finance\Live_trade\iphone_notification.mp3")
+getstockresult(r"","RS_dashboard.csv",'stock_screener')
+getstockresult(r"","MidCap.csv",'Midcap')
+getstockresult(r"","NIFTY_DASHBOARD.csv",'nifty_50')
+playsound(r"")
 getsectorresult()
 toc=dt.datetime.now()
 print(toc-tic)
-playsound(r"C:\Users\mange\Desktop\Finance\Live_trade\iphone_notification.mp3")
+playsound(r"")
