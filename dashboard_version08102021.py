@@ -61,6 +61,6 @@ ddl_cursor.execute('insert into bhav_copy_raw.index_file select * from bhav_copy
 ddl_cursor.execute("delete from bhav_copy_raw.bhavcopy where"+ '"SERIES"'+" <> 'EQ';")
 ddl_cursor.execute('update bhav_copy_raw.index_file set "Index Name"  = upper("Index Name" );')
 connection.commit()
-with open(r"C:\Users\mange\Desktop\Bhavcopy\proc_date.txt",'w',encoding = 'utf-8') as text_file:
+with open(r"",'w',encoding = 'utf-8') as text_file:
     text_file.write(str(dt.date.today()))
 
