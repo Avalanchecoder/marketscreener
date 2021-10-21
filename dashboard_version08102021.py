@@ -18,12 +18,12 @@ from sqlalchemy import create_engine
 from io import BytesIO
 import requests
 connection = psycopg2.connect(
-            host="localhost",
-            database="postgres",
-            user="postgres",
-            password="Pistonpower@115")
-engine = create_engine('postgresql://postgres:Pistonpower@115@localhost:5432/postgres')
-with open(r"C:\Users\mange\Desktop\Bhavcopy\proc_date.txt",'r',encoding = 'utf-8') as f:
+            host="",
+            database="",
+            user="",
+            password="")
+engine = create_engine('')
+with open(r"",'r',encoding = 'utf-8') as f:
     current_date=f.readline()
 date = dt.datetime.strptime(current_date,'%Y-%m-%d').date()
 date += dt.timedelta(days=1)
